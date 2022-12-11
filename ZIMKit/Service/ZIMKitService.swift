@@ -9,7 +9,7 @@ import Foundation
 import ZIM
 import ZegoSignalingPlugin
 
-class ZIMKitService: NSObject, ZIMEventHandler {
+class ZIMKitService: NSObject {
     static let shared = ZIMKitService()
     
     var zim: ZIM? = nil
