@@ -18,9 +18,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         // 注册插件到Adapter
-        let plugins: [ZegoPluginProtocol] = [ZegoCallKitPlugin.shared, ZegoSignalingPlugin.shared]
-        ZegoPluginAdapter.installPlugins(plugins)
+//        let plugins: [ZegoPluginProtocol] = [ZegoCallKitPlugin.shared, ZegoSignalingPlugin.shared]
+//        ZegoPluginAdapter.installPlugins(plugins)
 
         // 通过type获取已经注册的插件, 并转换类型
         let signaling = ZegoPluginAdapter.getPlugin(.signaling) as? ZegoSignalingPluginProtocol

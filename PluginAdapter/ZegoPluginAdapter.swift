@@ -19,6 +19,32 @@ public class ZegoPluginAdapter {
     }
     
     public static func getPlugin(_ type: ZegoPluginType) -> ZegoPluginProtocol? {
-        ZegoPluginAdapter.shared.plugins[type]
+        // get plugin from ZegoPluginAdapter
+        if let plugin = ZegoPluginAdapter.shared.plugins[type] {
+            return plugin
+        }
+        
+        // get plugin from PluginProvider
+        let provider = getPluginProvider(with: type)
+        guard let plugin = provider?.getPlugin() else {
+            return nil
+        }
+        // install plugin into ZegoPluginAdapter
+        // and will get plugin from ZegoPluginAdapter next time.
+        ZegoPluginAdapter.installPlugins([plugin])
+        return plugin
+    }
+    
+    private static func getPluginProvider(with type: ZegoPluginType) -> ZegoPluginProvider? {
+        switch type {
+        case .signaling:
+            return ZegoSignalingProvider() as? ZegoPluginProvider
+        case .callkit:
+            return ZegoCallKitProvider() as? ZegoPluginProvider
+        case .beauty:
+            return ZegoBeautyProvider() as? ZegoPluginProvider
+        case .whiteboard:
+            return ZegoWhiteboardProvider() as? ZegoPluginProvider
+        }
     }
 }
