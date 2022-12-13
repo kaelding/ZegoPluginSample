@@ -12,7 +12,7 @@ public class ZegoCallKitService: NSObject {
     public static let shared = ZegoCallKitService()
     
     public func sendInvitation(_ invitees: [String], timeout: UInt32, data: String?, callback: InvitationCallback?) {
-        let signaling = ZegoPluginAdapter.getPlugin(.signaling) as? ZegoSignalingPluginProtocol
+        let signaling = ZegoPluginAdapter.signalingPlugin
         signaling?.sendInvitation(with: invitees, timeout: timeout, data: data, callback: callback)
     }
 }

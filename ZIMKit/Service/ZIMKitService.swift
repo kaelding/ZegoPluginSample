@@ -27,16 +27,12 @@ class ZIMKitService: NSObject {
         let zimUserInfo = ZIMUserInfo()
         zimUserInfo.userID = userInfo.id
         zimUserInfo.userName = userInfo.name
-        zim?.login(with: zimUserInfo, token: "", callback: { error in
+        zim?.login(with: zimUserInfo) { error in
             if let userAvatarUrl = userInfo.avatarUrl {
-                self.updateUserAvatarUrl(userAvatarUrl) { _, error in
-                    if error.code == 0 {
-                        print("Update user's avatar success.")
-                    }
-                }
+                self.updateUserAvatarUrl(userAvatarUrl, callback: nil)
             }
             callback?(ZIMKitError(code: error.code.rawValue, message: error.message))
-        })
+        }
     }
     
     func disconnectUser() {

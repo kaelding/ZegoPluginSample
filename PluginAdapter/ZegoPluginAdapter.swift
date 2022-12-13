@@ -18,7 +18,13 @@ public class ZegoPluginAdapter {
         }
     }
     
-    public static func getPlugin(_ type: ZegoPluginType) -> ZegoPluginProtocol? {
+    // 静态属性, 调用方式为 ZegoPluginAdapter.signalingPlugin
+    // 其他端没有可以改为 getSignalingPlugin() 方法
+    public static var signalingPlugin: ZegoSignalingPluginProtocol? {
+        return getPlugin(.signaling) as? ZegoSignalingPluginProtocol
+    }
+    
+    private static func getPlugin(_ type: ZegoPluginType) -> ZegoPluginProtocol? {
         // get plugin from ZegoPluginAdapter
         if let plugin = ZegoPluginAdapter.shared.plugins[type] {
             return plugin

@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import ZegoPluginAdapter
 
 public class ZIMKit: NSObject {
     
@@ -29,6 +30,10 @@ public class ZIMKit: NSObject {
     /// Disconnects current user from ZIMKit server.
     public static func disconnectUser() {
         ZIMKitService.shared.disconnectUser()
+    }
+    
+    public static func installPlugins(_ plugins: [ZegoPluginProtocol]) {
+        ZegoPluginAdapter.installPlugins(plugins)
     }
     
     /// Update the user avatar

@@ -27,7 +27,9 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
     }
     
     func zim(_ zim: ZIM, tokenWillExpire second: UInt32) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, tokenWillExpire: second)
+        }
     }
     
     // MARK: - Conversation

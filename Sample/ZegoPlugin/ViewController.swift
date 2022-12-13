@@ -27,7 +27,7 @@ class ViewController: UIViewController {
 //        ZegoPluginAdapter.installPlugins(plugins)
 
         // 通过type获取已经注册的插件, 并转换类型
-        let signaling = ZegoPluginAdapter.getPlugin(.signaling) as? ZegoSignalingPluginProtocol
+        let signaling = ZegoPluginAdapter.signalingPlugin
         // 调用插件方法
         signaling?.initWith(appID: 123, appSign: "123")
         signaling?.sendInvitation(with: ["123"], timeout: 60, data: nil, callback: nil)

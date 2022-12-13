@@ -7,7 +7,7 @@
 
 import Foundation
 
-public typealias LoginCallback = (_ errorCode: UInt, _ errorMessage: String) -> ()
+public typealias ConnectUserCallback = (_ errorCode: UInt, _ errorMessage: String) -> ()
 
 public typealias InvitationCallback = (_ errorCode: UInt,
                                        _ errorMessage: String,
@@ -22,19 +22,20 @@ public typealias ResponseInvitationCallback = (_ errorCode: UInt, _ errorMessage
 
 public typealias RoomCallback = (_ errorCode: UInt, _ errorMessage: String) -> ()
 
-// infos: "userID": "xxx", "attributes": [String: String]
+// userIDs & attributes & errorKeys 顺序一一对应
 public typealias SetUsersInRoomAttributesCallback = (_ errorCode: UInt,
                                                      _ errorMessage: String,
                                                      _ errorUserList: [String],
-                                                     _ infos: [[String: Any]],
-                                                     _ roomID: String) -> ()
+                                                     _ userIDs: [String],
+                                                     _ attributes: [[String: String]],
+                                                     _ errorKeys: [[String]]) -> ()
 
-// infos: "userID": "xxx", "attributes": [String: String]
+// userIDs & attributes 顺序一一对应
 public typealias QueryUsersInRoomAttributesCallback = (_ errorCode: UInt,
                                                        _ errorMessage: String,
                                                        _ nextFlag: String,
-                                                       _ infos: [[String: Any]],
-                                                       _ roomID: String) -> ()
+                                                       _ userIDs: [String],
+                                                       _ attributes: [[String: String]]) -> ()
 
 public typealias RoomPropertyOperationCallback = (_ errorCode: UInt,
                                                   _ errorMessage: String,

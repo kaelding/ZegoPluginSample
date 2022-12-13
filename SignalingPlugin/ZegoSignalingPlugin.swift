@@ -31,7 +31,7 @@ public class ZegoSignalingPlugin: ZegoSignalingPluginProtocol {
         service.initWith(appID: appID, appSign: appSign)
     }
     
-    public func connectUser(userID: String, userName: String, callback: LoginCallback?) {
+    public func connectUser(userID: String, userName: String, callback: ConnectUserCallback?) {
         service.connectUser(userID: userID, userName: userName, callback: callback)
     }
     

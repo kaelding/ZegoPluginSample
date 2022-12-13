@@ -11,7 +11,7 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     
     func initWith(appID: UInt32, appSign: String)
     
-    func connectUser(userID: String, userName: String, callback: LoginCallback?)
+    func connectUser(userID: String, userName: String, callback: ConnectUserCallback?)
     
     func disconnectUser()
     

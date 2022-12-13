@@ -31,7 +31,7 @@ class ZegoSignalingPluginService: NSObject {
         zim?.setEventHandler(self)
     }
     
-    func connectUser(userID: String, userName: String, callback: LoginCallback?) {
+    func connectUser(userID: String, userName: String, callback: ConnectUserCallback?) {
         let user = ZIMUserInfo()
         user.userID = userID
         user.userName = userName
@@ -116,11 +116,10 @@ class ZegoSignalingPluginService: NSObject {
         zim?.setRoomMembersAttributes(attributes, userIDs: userIDs, roomID: roomID, config: config, callback: { roomID, infos, errorUserList, error in
             let code = error.code.rawValue
             let message = error.message
-            let attributeInfos: [[String: Any]] = infos.compactMap { info in
-                ["userID": info.attributesInfo.userID,
-                 "attributes": info.attributesInfo.attributes]
-            }
-            callback?(code, message, errorUserList, attributeInfos, roomID)
+            let userIDs = infos.compactMap { $0.attributesInfo.userID }
+            let attributes = infos.compactMap { $0.attributesInfo.attributes }
+            let errorKeys = infos.compactMap { $0.errorKeys }
+            callback?(code, message, errorUserList, userIDs, attributes, errorKeys)
         })
     }
     
@@ -134,11 +133,9 @@ class ZegoSignalingPluginService: NSObject {
         zim?.queryRoomMemberAttributesList(by: roomID, config: config, callback: { roomID, infos, nextFlag, error in
             let code = error.code.rawValue
             let message = error.message
-            let attributeInfos: [[String: Any]] = infos.compactMap { info in
-                ["userID": info.userID,
-                 "attributes": info.attributes]
-            }
-            callback?(code, message, nextFlag, attributeInfos, roomID)
+            let userIDs = infos.compactMap { $0.userID }
+            let attributes = infos.compactMap { $0.attributes }
+            callback?(code, message, nextFlag, userIDs, attributes)
         })
     }
     
