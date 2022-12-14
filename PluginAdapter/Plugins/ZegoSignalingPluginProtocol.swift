@@ -9,11 +9,16 @@ import Foundation
 
 public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     
-    func initWith(appID: UInt32, appSign: String)
+    func initWith(appID: UInt32, appSign: String?)
     
-    func connectUser(userID: String, userName: String, callback: ConnectUserCallback?)
+    func connectUser(userID: String,
+                     userName: String,
+                     token: String?,
+                     callback: ConnectUserCallback?)
     
     func disconnectUser()
+    
+    func renewToken(_ token: String, callback: RenewTokenCallback?)
     
     // MARK: - Invitation
     // 将type参数去掉, 由业务方自行放入data中, plugin不需要关心invitation的type
@@ -85,6 +90,8 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
 
 @objc public protocol ZegoSignalingPluginEventHandler: AnyObject {
     func onConnectionStateChanged(_ state: UInt)
+    
+    func onTokenWillExpire(in second: UInt32)
     
     // MARK: - Invitation
     func onCallInvitationReceived(_ callID: String,

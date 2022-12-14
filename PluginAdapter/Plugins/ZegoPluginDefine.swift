@@ -9,6 +9,8 @@ import Foundation
 
 public typealias ConnectUserCallback = (_ errorCode: UInt, _ errorMessage: String) -> ()
 
+public typealias RenewTokenCallback = (_ errorCode: UInt, _ errorMessage: String) -> ()
+
 public typealias InvitationCallback = (_ errorCode: UInt,
                                        _ errorMessage: String,
                                        _ invitationID: String,

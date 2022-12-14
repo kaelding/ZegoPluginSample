@@ -19,30 +19,39 @@ class ZegoSignalingPluginService: NSObject {
     var zim: ZIM? = nil
     var userInfo: ZIMUserInfo? = nil
     
-    func initWith(appID: UInt32, appSign: String) {
+    func initWith(appID: UInt32, appSign: String?) {
         if ZIM.shared() != nil {
             zim = ZIM.shared()
             return
         }
         let config = ZIMAppConfig()
         config.appID = appID
-        config.appSign = appSign
+        config.appSign = appSign ?? ""
         zim = ZIM.create(with: config)
         zim?.setEventHandler(self)
     }
     
-    func connectUser(userID: String, userName: String, callback: ConnectUserCallback?) {
+    func connectUser(userID: String,
+                     userName: String,
+                     token: String?,
+                     callback: ConnectUserCallback?) {
         let user = ZIMUserInfo()
         user.userID = userID
         user.userName = userName
         userInfo = user
-        zim?.login(with: user, callback: { error in
+        zim?.login(with: user, token: token ?? "") { error in
             callback?(error.code.rawValue, error.message)
-        })
+        }
     }
     
     func disconnectUser() {
         zim?.logout()
+    }
+    
+    func renewToken(_ token: String, callback: RenewTokenCallback?) {
+        zim?.renewToken(token) { token, error in
+            callback?(error.code.rawValue, error.message)
+        }
     }
     
     // MARK: - Invitation

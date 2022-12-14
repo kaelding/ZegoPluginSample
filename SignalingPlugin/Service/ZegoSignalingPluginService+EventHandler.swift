@@ -30,6 +30,10 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
         for handler in zimEventHandlers.allObjects {
             handler.zim?(zim, tokenWillExpire: second)
         }
+        
+        for handler in pluginEventHandlers.allObjects {
+            handler.onTokenWillExpire(in: second)
+        }
     }
     
     // MARK: - Conversation

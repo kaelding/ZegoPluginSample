@@ -27,16 +27,26 @@ public class ZegoSignalingPlugin: ZegoSignalingPluginProtocol {
         "1.0.0"
     }
     
-    public func initWith(appID: UInt32, appSign: String) {
+    public func initWith(appID: UInt32, appSign: String?) {
         service.initWith(appID: appID, appSign: appSign)
     }
     
-    public func connectUser(userID: String, userName: String, callback: ConnectUserCallback?) {
-        service.connectUser(userID: userID, userName: userName, callback: callback)
+    public func connectUser(userID: String,
+                            userName: String,
+                            token: String?,
+                            callback: ConnectUserCallback?) {
+        service.connectUser(userID: userID,
+                            userName: userName,
+                            token: token,
+                            callback: callback)
     }
     
     public func disconnectUser() {
         service.disconnectUser()
+    }
+    
+    public func renewToken(_ token: String, callback: RenewTokenCallback?) {
+        service.renewToken(token, callback: callback)
     }
     
     // MARK: - Invitation
