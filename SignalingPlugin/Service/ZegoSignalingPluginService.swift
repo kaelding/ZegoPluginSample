@@ -63,18 +63,18 @@ class ZegoSignalingPluginService: NSObject {
         let config = ZIMCallInviteConfig()
         config.timeout = timeout
         config.extendedData = data ?? ""
-        zim?.callInvite(with: invitees, config: config, callback: { callID, info, error in
+        zim?.callInvite(with: invitees, config: config, callback: { invitationID, info, error in
             let code = error.code.rawValue
             let message = error.message
             let errorInvitees = info.errorInvitees.compactMap({ $0.userID })
-            callback?(code, message, callID, errorInvitees)
+            callback?(code, message, invitationID, errorInvitees)
         })
     }
     
     func cancelInvitation(with invitees: [String], invitationID: String, data: String?, callback: CancelInvitationCallback?) {
         let config = ZIMCallCancelConfig()
         config.extendedData = data ?? ""
-        zim?.callCancel(with: invitees, callID: invitationID, config: config, callback: { callID, errorInvitees, error in
+        zim?.callCancel(with: invitees, callID: invitationID, config: config, callback: { invitationID, errorInvitees, error in
             let code = error.code.rawValue
             let message = error.message
             callback?(code, message, errorInvitees)
@@ -86,7 +86,7 @@ class ZegoSignalingPluginService: NSObject {
                                  callback: ResponseInvitationCallback?) {
         let config = ZIMCallRejectConfig()
         config.extendedData = data ?? ""
-        zim?.callReject(with: invitationID, config: config, callback: { callID, error in
+        zim?.callReject(with: invitationID, config: config, callback: { invitationID, error in
             callback?(error.code.rawValue, error.message)
         })
     }
@@ -96,7 +96,7 @@ class ZegoSignalingPluginService: NSObject {
                                  callback: ResponseInvitationCallback?) {
         let config = ZIMCallAcceptConfig()
         config.extendedData = data ?? ""
-        zim?.callAccept(with: invitationID, config: config, callback: { callID, error in
+        zim?.callAccept(with: invitationID, config: config, callback: { invitationID, error in
             callback?(error.code.rawValue, error.message)
         })
     }

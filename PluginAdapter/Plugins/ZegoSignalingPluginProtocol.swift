@@ -94,26 +94,26 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     func onTokenWillExpire(in second: UInt32)
     
     // MARK: - Invitation
-    func onCallInvitationReceived(_ callID: String,
+    func onCallInvitationReceived(_ invitationID: String,
                                   inviterID: String,
                                   data: String)
     
-    func onCallInvitationCancelled(_ callID: String,
+    func onCallInvitationCancelled(_ invitationID: String,
                                   inviterID: String,
                                   data: String)
     
-    func onCallInvitationAccepted(_ callID: String,
+    func onCallInvitationAccepted(_ invitationID: String,
                                   inviteeID: String,
                                   data: String)
     
-    func onCallInvitationRejected(_ callID: String,
+    func onCallInvitationRejected(_ invitationID: String,
                                   inviteeID: String,
                                   data: String)
     
     // 去掉inviter 只通过callID来判断
-    func onCallInvitationTimeout(_ callID: String)
+    func onCallInvitationTimeout(_ invitationID: String)
     
-    func onCallInviteesAnsweredTimeout(_ callID: String, invitees: [String])
+    func onCallInviteesAnsweredTimeout(_ invitationID: String, invitees: [String])
     
     // MARK: - Room
     // userIDs与attributes的顺序一致
