@@ -101,10 +101,11 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
         for handler in zimEventHandlers.allObjects {
             handler.zim?(zim, roomAttributesUpdated: updateInfo, roomID: roomID)
         }
-        
+        let setProperties = updateInfo.action == .set ? updateInfo.roomAttributes : [:]
+        let deleteProperties = updateInfo.action == .delete ? updateInfo.roomAttributes : [:]
         for handler in pluginEventHandlers.allObjects {
-            handler.onRoomPropertiesUpdated([updateInfo.roomAttributes],
-                                            actions: [updateInfo.action.rawValue],
+            handler.onRoomPropertiesUpdated([setProperties],
+                                            deleteProperties: [deleteProperties],
                                             roomID: roomID)
         }
     }
@@ -114,11 +115,18 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
             handler.zim?(zim, roomAttributesBatchUpdated: updateInfo, roomID: roomID)
         }
         
-        let roomAttributes = updateInfo.compactMap { $0.roomAttributes }
-        let actions = updateInfo.compactMap { $0.action.rawValue }
+        var setProperties: [[String: String]] = []
+        var deleteProperties: [[String: String]] = []
+        for info in updateInfo {
+            if info.action == .set {
+                setProperties.append(info.roomAttributes)
+            } else if info.action == .delete {
+                deleteProperties.append(info.roomAttributes)
+            }
+        }
         for handler in pluginEventHandlers.allObjects {
-            handler.onRoomPropertiesUpdated(roomAttributes,
-                                            actions: actions,
+            handler.onRoomPropertiesUpdated(setProperties,
+                                            deleteProperties: deleteProperties,
                                             roomID: roomID)
         }
     }
@@ -127,13 +135,13 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
         for handler in zimEventHandlers.allObjects {
             handler.zim?(zim, roomMemberAttributesUpdated: infos, operatedInfo: operatedInfo, roomID: roomID)
         }
-        
-        let userIDs = infos.compactMap { $0.attributesInfo.userID }
-        let attributes = infos.compactMap { $0.attributesInfo.attributes }
+        var attributesMap: [String: [String: String]] = [:]
+        for info in infos {
+            attributesMap[info.attributesInfo.userID] = info.attributesInfo.attributes
+        }
         let editor = operatedInfo.userID
         for handler in pluginEventHandlers.allObjects {
-            handler.onUsersInRoomAttributesUpdated(userIDs,
-                                                   attributes: attributes,
+            handler.onUsersInRoomAttributesUpdated(attributesMap,
                                                    editor: editor,
                                                    roomID: roomID)
         }

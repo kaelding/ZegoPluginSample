@@ -125,10 +125,14 @@ class ZegoSignalingPluginService: NSObject {
         zim?.setRoomMembersAttributes(attributes, userIDs: userIDs, roomID: roomID, config: config, callback: { roomID, infos, errorUserList, error in
             let code = error.code.rawValue
             let message = error.message
-            let userIDs = infos.compactMap { $0.attributesInfo.userID }
-            let attributes = infos.compactMap { $0.attributesInfo.attributes }
-            let errorKeys = infos.compactMap { $0.errorKeys }
-            callback?(code, message, errorUserList, userIDs, attributes, errorKeys)
+            
+            var attributesMap = [String: [String: String]]()
+            var errorKeysMap = [String: [String]]()
+            for info in infos {
+                attributesMap[info.attributesInfo.userID] = info.attributesInfo.attributes
+                errorKeysMap[info.attributesInfo.userID] = info.errorKeys
+            }
+            callback?(code, message, errorUserList, attributesMap, errorKeysMap)
         })
     }
     
@@ -142,9 +146,11 @@ class ZegoSignalingPluginService: NSObject {
         zim?.queryRoomMemberAttributesList(by: roomID, config: config, callback: { roomID, infos, nextFlag, error in
             let code = error.code.rawValue
             let message = error.message
-            let userIDs = infos.compactMap { $0.userID }
-            let attributes = infos.compactMap { $0.attributes }
-            callback?(code, message, nextFlag, userIDs, attributes)
+            var attributesMap: [String: [String: String]] = [:]
+            for info in infos {
+                attributesMap[info.userID] = info.attributes
+            }
+            callback?(code, message, nextFlag, attributesMap)
         })
     }
     

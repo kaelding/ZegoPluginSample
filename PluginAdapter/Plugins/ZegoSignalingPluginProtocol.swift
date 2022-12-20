@@ -116,16 +116,16 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     func onCallInviteesAnsweredTimeout(_ invitationID: String, invitees: [String])
     
     // MARK: - Room
-    // userIDs与attributes的顺序一致
+    // attributesMap, userID: attributes
     // 增加roomID回调参数
-    func onUsersInRoomAttributesUpdated(_ userIDs: [String],
-                                        attributes: [[String: String]],
+    func onUsersInRoomAttributesUpdated(_ attributesMap: [String: [String: String]],
                                         editor: String,
                                         roomID: String)
     
     // 增加roomID回调参数
-    // properties和actions数组的顺序一致, action: 0 - set, 1 - delete
-    func onRoomPropertiesUpdated(_ properties: [[String: String]], actions: [UInt], roomID: String)
+    func onRoomPropertiesUpdated(_ setProperties: [[String: String]],
+                                 deleteProperties: [[String: String]],
+                                 roomID: String)
     
     func onRoomMemberLeft(_ userIDList: [String], roomID: String)
     

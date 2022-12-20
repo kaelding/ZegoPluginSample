@@ -24,20 +24,19 @@ public typealias ResponseInvitationCallback = (_ errorCode: UInt, _ errorMessage
 
 public typealias RoomCallback = (_ errorCode: UInt, _ errorMessage: String) -> ()
 
-// userIDs & attributes & errorKeys 顺序一一对应
+// attributesMap, userID: attributes
+// errorKeysMap, userID: errorKeys
 public typealias SetUsersInRoomAttributesCallback = (_ errorCode: UInt,
                                                      _ errorMessage: String,
                                                      _ errorUserList: [String],
-                                                     _ userIDs: [String],
-                                                     _ attributes: [[String: String]],
-                                                     _ errorKeys: [[String]]) -> ()
+                                                     _ attributesMap: [String: [String: String]],
+                                                     _ errorKeysMap: [String: [String]]) -> ()
 
-// userIDs & attributes 顺序一一对应
+// attributesMap, userID: attributes
 public typealias QueryUsersInRoomAttributesCallback = (_ errorCode: UInt,
                                                        _ errorMessage: String,
                                                        _ nextFlag: String,
-                                                       _ userIDs: [String],
-                                                       _ attributes: [[String: String]]) -> ()
+                                                       _ attributesMap: [String: [String: String]]) -> ()
 
 public typealias RoomPropertyOperationCallback = (_ errorCode: UInt,
                                                   _ errorMessage: String,
