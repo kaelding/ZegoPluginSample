@@ -49,9 +49,18 @@ public typealias QueryRoomPropertyCallback = (_ errorCode: UInt,
                                               _ errorMessage: String,
                                               _ properties: [String: String]) -> ()
 
+public typealias SendRoomMessageCallback = (_ errorCode: UInt, _ errorMessage: String) -> ()
+
 public enum ZegoPluginType {
     case signaling
     case callkit
     case beauty
     case whiteboard
+}
+
+@objc public enum ZegoSignalingPluginConnectionState: UInt {
+    case disconnected
+    case connecting
+    case connected
+    case reconnecting
 }

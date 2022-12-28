@@ -83,13 +83,15 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     // 增加一个roomID的参数
     func queryRoomProperties(by roomID: String, callback: QueryRoomPropertyCallback?)
     
+    func sendRoomMessage(_ text: String, roomID: String, callback: SendRoomMessageCallback?)
+    
     // MARK: - Register Event
     func registerPluginEventHandler(_ delegate: ZegoSignalingPluginEventHandler)
 }
 
 
 @objc public protocol ZegoSignalingPluginEventHandler: AnyObject {
-    func onConnectionStateChanged(_ state: UInt)
+    func onConnectionStateChanged(_ state: ZegoSignalingPluginConnectionState)
     
     func onTokenWillExpire(in second: UInt32)
     
@@ -130,4 +132,9 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     func onRoomMemberLeft(_ userIDList: [String], roomID: String)
     
     func onRoomMemberJoined(_ userIDList: [String], roomID: String)
+    
+    func onRoomMessageReceived(_ message: String,
+                               senderID: String,
+                               timestamp: UInt64,
+                               roomID: String)
 }

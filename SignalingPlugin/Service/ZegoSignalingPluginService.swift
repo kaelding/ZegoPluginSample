@@ -203,6 +203,14 @@ class ZegoSignalingPluginService: NSObject {
         })
     }
     
+    func sendRoomMessage(_ text: String, roomID: String, callback: SendRoomMessageCallback?) {
+        let msg = ZIMTextMessage(message: text)
+        let config = ZIMMessageSendConfig()
+        zim?.sendMessage(msg, toConversationID: roomID, conversationType: .room, config: config, notification: nil, callback: { msg, error in
+            callback?(error.code.rawValue, error.message)
+        })
+    }
+    
     // MARK: - Register Event
     func registerPluginEventHandler(_ handler: ZegoSignalingPluginEventHandler) {
         pluginEventHandlers.add(handler)

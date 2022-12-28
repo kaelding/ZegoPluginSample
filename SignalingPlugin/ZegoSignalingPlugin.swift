@@ -145,6 +145,10 @@ public class ZegoSignalingPlugin: ZegoSignalingPluginProtocol {
         service.queryRoomProperties(by: roomID, callback: callback)
     }
     
+    public func sendRoomMessage(_ text: String, roomID: String, callback: SendRoomMessageCallback?) {
+        service.sendRoomMessage(text, roomID: roomID, callback: callback)
+    }
+    
     // MARK: - Register Event
     public func registerPluginEventHandler(_ handler: ZegoSignalingPluginEventHandler) {
         service.registerPluginEventHandler(handler)

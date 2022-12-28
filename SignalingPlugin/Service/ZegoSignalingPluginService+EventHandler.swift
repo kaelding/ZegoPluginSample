@@ -7,6 +7,7 @@
 
 import Foundation
 import ZIM
+import ZegoPluginAdapter
 
 extension ZegoSignalingPluginService: ZIMEventHandler {
     func zim(_ zim: ZIM, connectionStateChanged state: ZIMConnectionState, event: ZIMConnectionEvent, extendedData: [AnyHashable : Any]) {
@@ -15,7 +16,8 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
         }
         
         for handler in pluginEventHandlers.allObjects {
-            handler.onConnectionStateChanged(state.rawValue)
+            let state = ZegoSignalingPluginConnectionState(rawValue: state.rawValue) ?? .disconnected
+            handler.onConnectionStateChanged(state)
         }
     }
     
@@ -55,7 +57,19 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
     }
     
     func zim(_ zim: ZIM, receiveRoomMessage messageList: [ZIMMessage], fromRoomID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, receiveRoomMessage: messageList, fromRoomID: fromRoomID)
+        }
+        let messageList = messageList.sorted { $0.timestamp < $1.timestamp }
+        for message in messageList {
+            guard let message = message as? ZIMTextMessage else { continue }
+            for handler in pluginEventHandlers.allObjects {
+                handler.onRoomMessageReceived(message.message,
+                                              senderID: message.senderUserID,
+                                              timestamp: message.timestamp,
+                                              roomID: fromRoomID)
+            }
+        }
     }
     
     func zim(_ zim: ZIM, receiveGroupMessage messageList: [ZIMMessage], fromGroupID: String) {
