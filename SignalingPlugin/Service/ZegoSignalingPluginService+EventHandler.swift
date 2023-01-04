@@ -40,20 +40,28 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
     
     // MARK: - Conversation
     func zim(_ zim: ZIM, conversationChanged conversationChangeInfoList: [ZIMConversationChangeInfo]) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, conversationChanged: conversationChangeInfoList)
+        }
     }
     
     func zim(_ zim: ZIM, conversationTotalUnreadMessageCountUpdated totalUnreadMessageCount: UInt32) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, conversationTotalUnreadMessageCountUpdated: totalUnreadMessageCount)
+        }
     }
     
     func zim(_ zim: ZIM, conversationMessageReceiptChanged infos: [ZIMMessageReceiptInfo]) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, conversationMessageReceiptChanged: infos)
+        }
     }
     
     // MARK: - Message
     func zim(_ zim: ZIM, receivePeerMessage messageList: [ZIMMessage], fromUserID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, receivePeerMessage: messageList, fromUserID: fromUserID)
+        }
     }
     
     func zim(_ zim: ZIM, receiveRoomMessage messageList: [ZIMMessage], fromRoomID: String) {
@@ -77,15 +85,21 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
     }
     
     func zim(_ zim: ZIM, receiveGroupMessage messageList: [ZIMMessage], fromGroupID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, receiveGroupMessage: messageList, fromGroupID: fromGroupID)
+        }
     }
     
     func zim(_ zim: ZIM, messageRevokeReceived messageList: [ZIMRevokeMessage]) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, messageRevokeReceived: messageList)
+        }
     }
     
     func zim(_ zim: ZIM, messageReceiptChanged infos: [ZIMMessageReceiptInfo]) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, messageReceiptChanged: infos)
+        }
     }
     
     // MARK: - Room
@@ -167,31 +181,45 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
     
     // MARK: - Group
     func zim(_ zim: ZIM, groupStateChanged state: ZIMGroupState, event: ZIMGroupEvent, operatedInfo: ZIMGroupOperatedInfo, groupInfo: ZIMGroupFullInfo) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, groupStateChanged: state, event: event, operatedInfo: operatedInfo, groupInfo: groupInfo)
+        }
     }
     
     func zim(_ zim: ZIM, groupNameUpdated groupName: String, operatedInfo: ZIMGroupOperatedInfo, groupID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, groupNameUpdated: groupName, operatedInfo: operatedInfo, groupID: groupID)
+        }
     }
     
     func zim(_ zim: ZIM, groupAvatarUrlUpdated groupAvatarUrl: String, operatedInfo: ZIMGroupOperatedInfo, groupID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, groupAvatarUrlUpdated: groupAvatarUrl, operatedInfo: operatedInfo, groupID: groupID)
+        }
     }
     
     func zim(_ zim: ZIM, groupNoticeUpdated groupNotice: String, operatedInfo: ZIMGroupOperatedInfo, groupID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, groupNoticeUpdated: groupNotice, operatedInfo: operatedInfo, groupID: groupID)
+        }
     }
     
     func zim(_ zim: ZIM, groupAttributesUpdated updateInfo: [ZIMGroupAttributesUpdateInfo], operatedInfo: ZIMGroupOperatedInfo, groupID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, groupAttributesUpdated: updateInfo, operatedInfo: operatedInfo, groupID: groupID)
+        }
     }
     
     func zim(_ zim: ZIM, groupMemberStateChanged state: ZIMGroupMemberState, event: ZIMGroupMemberEvent, userList: [ZIMGroupMemberInfo], operatedInfo: ZIMGroupOperatedInfo, groupID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, groupMemberStateChanged: state, event: event, userList: userList, operatedInfo: operatedInfo, groupID: groupID)
+        }
     }
     
     func zim(_ zim: ZIM, groupMemberInfoUpdated userInfo: [ZIMGroupMemberInfo], operatedInfo: ZIMGroupOperatedInfo, groupID: String) {
-        
+        for handler in zimEventHandlers.allObjects {
+            handler.zim?(zim, groupMemberInfoUpdated: userInfo, operatedInfo: operatedInfo, groupID: groupID)
+        }
     }
     
     // MARK: - Invitation
