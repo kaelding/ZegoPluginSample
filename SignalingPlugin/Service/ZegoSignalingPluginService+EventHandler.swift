@@ -60,15 +60,19 @@ extension ZegoSignalingPluginService: ZIMEventHandler {
         for handler in zimEventHandlers.allObjects {
             handler.zim?(zim, receiveRoomMessage: messageList, fromRoomID: fromRoomID)
         }
-        let messageList = messageList.sorted { $0.timestamp < $1.timestamp }
-        for message in messageList {
-            guard let message = message as? ZIMTextMessage else { continue }
-            for handler in pluginEventHandlers.allObjects {
-                handler.onRoomMessageReceived(message.message,
-                                              senderID: message.senderUserID,
-                                              timestamp: message.timestamp,
-                                              roomID: fromRoomID)
-            }
+        
+        var messages = [ZegoSignalingInRoomTextMessage]()
+        for msg in messageList {
+            guard let msg = msg as? ZIMTextMessage else { continue }
+            let newMsg = ZegoSignalingInRoomTextMessage(messageID: msg.messageID,
+                                                        timestamp: msg.timestamp,
+                                                        orderKey: msg.orderKey,
+                                                        senderUserID: msg.senderUserID,
+                                                        text: msg.message)
+            messages.append(newMsg)
+        }
+        for handler in pluginEventHandlers.allObjects {
+            handler.onInRoomTextMessageReceived(messages, roomID: fromRoomID)
         }
     }
     

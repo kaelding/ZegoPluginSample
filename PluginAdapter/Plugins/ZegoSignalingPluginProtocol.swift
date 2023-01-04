@@ -133,8 +133,6 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     
     func onRoomMemberJoined(_ userIDList: [String], roomID: String)
     
-    func onRoomMessageReceived(_ message: String,
-                               senderID: String,
-                               timestamp: UInt64,
-                               roomID: String)
+    func onInRoomTextMessageReceived(_ messages: [ZegoSignalingInRoomTextMessage],
+                                     roomID: String)
 }

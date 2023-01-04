@@ -64,3 +64,23 @@ public enum ZegoPluginType {
     case connected
     case reconnecting
 }
+
+public class ZegoSignalingInRoomTextMessage: NSObject {
+    public var messageID: Int64 = 0
+    public var timestamp: UInt64 = 0
+    public var orderKey: Int64 = 0
+    public var senderUserID: String = ""
+    public var text: String = ""
+    
+    public init(messageID: Int64,
+                timestamp: UInt64,
+                orderKey: Int64,
+                senderUserID: String,
+                text: String) {
+        self.messageID = messageID
+        self.timestamp = timestamp
+        self.orderKey = orderKey
+        self.senderUserID = senderUserID
+        self.text = text
+    }
+}
