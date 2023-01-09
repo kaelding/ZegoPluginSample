@@ -26,7 +26,7 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     func sendInvitation(with invitees: [String],
                         timeout: UInt32,
                         data: String?,
-                        notificationConfig: [String: String]?,
+                        notificationConfig: ZegoSignalingPluginNotificationConfig?,
                         callback: InvitationCallback?)
     
     // 加一个参数 invitationID

@@ -53,7 +53,7 @@ public class ZegoSignalingPlugin: ZegoSignalingPluginProtocol {
     public func sendInvitation(with invitees: [String],
                                timeout: UInt32,
                                data: String?,
-                               notificationConfig: [String: String]?,
+                               notificationConfig: ZegoSignalingPluginNotificationConfig?,
                                callback: InvitationCallback?) {
         service.sendInvitation(with: invitees,
                                timeout: timeout,

@@ -84,3 +84,15 @@ public class ZegoSignalingInRoomTextMessage: NSObject {
         self.text = text
     }
 }
+
+public class ZegoSignalingPluginNotificationConfig: NSObject {
+    public let resourceID: String
+    public let title: String
+    public let message: String
+    
+    init(resourceID: String, title: String, message: String) {
+        self.resourceID = resourceID
+        self.title = title
+        self.message = message
+    }
+}

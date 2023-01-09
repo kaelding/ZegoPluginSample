@@ -62,7 +62,7 @@ class ZegoSignalingPluginService: NSObject {
     func sendInvitation(with invitees: [String],
                         timeout: UInt32,
                         data: String?,
-                        notificationConfig: [String: String]?,
+                        notificationConfig: ZegoSignalingPluginNotificationConfig?,
                         callback: InvitationCallback?) {
         
         let config = ZIMCallInviteConfig()
@@ -70,9 +70,9 @@ class ZegoSignalingPluginService: NSObject {
         config.extendedData = data ?? ""
         if notifyWhenAppRunningInBackgroundOrQuit, let notificationConfig = notificationConfig {
             let pushConfig: ZIMPushConfig = ZIMPushConfig()
-            pushConfig.resourcesID =  notificationConfig["resourceID"] ?? ""
-            pushConfig.title = notificationConfig["title"] ?? ""
-            pushConfig.content = notificationConfig["message"] ?? ""
+            pushConfig.resourcesID =  notificationConfig.resourceID
+            pushConfig.title = notificationConfig.title
+            pushConfig.content = notificationConfig.message
             pushConfig.payload = data ?? ""
             config.pushConfig = pushConfig
         }
