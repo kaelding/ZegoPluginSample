@@ -18,9 +18,10 @@ public struct UserInfo {
     /// User avatar URL.
     public var avatarUrl: String?
 
-    public init(_ userID: String, _ userName: String) {
+    public init(userID: String, userName: String, avatarUrl: String? = nil) {
         self.id = userID
         self.name = userName
+        self.avatarUrl = avatarUrl
     }
     
     init(_ zimUserInfo: ZIMUserFullInfo) {

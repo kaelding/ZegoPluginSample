@@ -26,7 +26,9 @@ class ViewController: UIViewController {
         ZIMKit.initWith(appID: 2031514356,
                         appSign: "d0e83faa119daa065ae553fb23c68a3e624a1f879d5fb2d0c24e066d9859d214")
         ZIMKit.registerZIMKitDelegate(self)
-        ZIMKit.connectUser(userInfo: UserInfo("222222", "Kael")) { error in
+        
+        let userInfo = UserInfo(userID: "222222", userName: "Kael")
+        ZIMKit.connectUser(userInfo: userInfo) { error in
             if error.code == .success {
                 print("connectUser success.")
                 ZIMKit.sendTextMessage("123", to: "22222", type: .peer) { message, error in
