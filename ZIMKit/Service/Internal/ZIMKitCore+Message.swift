@@ -94,7 +94,6 @@ extension ZIMKitCore {
     }
     
     func sendAudioMessage(_ audioPath: String,
-                          duration: UInt32,
                           to conversationID: String,
                           type: ZIMConversationType,
                           callback: MessageSentCallback? = nil) {
@@ -108,12 +107,13 @@ extension ZIMKitCore {
         let filePath = filePrefix + ".\(URL(fileURLWithPath: audioPath).pathExtension)"
         try? FileManager.default.copyItem(atPath: audioPath, toPath: filePath)
         
+        let duration = UInt32(AVTool.getDurationOfMediaFile(audioPath))
+                
         let audioMessage = ZIMAudioMessage(fileLocalPath: filePath, audioDuration: duration)
         sendMediaMessage(audioMessage, to: conversationID, type: type, callback: callback)
     }
     
     func sendVideoMessage(_ videoPath: String,
-                          duration: UInt32,
                           to conversationID: String,
                           type: ZIMConversationType,
                           callback: MessageSentCallback? = nil) {
@@ -122,11 +122,13 @@ extension ZIMKitCore {
             return
         }
         
-        let filePrefix = ZIMKit.audioPath(conversationID, type) + generateFileName()
+        let filePrefix = ZIMKit.videoPath(conversationID, type) + generateFileName()
         let filePath = filePrefix + ".\(URL(fileURLWithPath: videoPath).pathExtension)"
         try? FileManager.default.copyItem(atPath: videoPath, toPath: filePath)
         
-        let videoMessage = ZIMVideoMessage(fileLocalPath: videoPath, videoDuration: duration)
+        let duration = UInt32(AVTool.getDurationOfMediaFile(videoPath))
+                
+        let videoMessage = ZIMVideoMessage(fileLocalPath: filePath, videoDuration: duration)
         sendMediaMessage(videoMessage, to: conversationID, type: type, callback: callback)
     }
     
@@ -140,7 +142,7 @@ extension ZIMKitCore {
             return
         }
         
-        let filePrefix = ZIMKit.audioPath(conversationID, type) + generateFileName()
+        let filePrefix = ZIMKit.filePath(conversationID, type) + generateFileName()
         let newFilePath = filePrefix + ".\(URL(fileURLWithPath: filePath).pathExtension)"
         try? FileManager.default.copyItem(atPath: filePath, toPath: newFilePath)
         

@@ -42,24 +42,20 @@ extension ZIMKit {
     }
     
     public static func sendAudioMessage(_ audioPath: String,
-                                        duration: UInt32,
                                         to conversationID: String,
                                         type: ZIMConversationType,
                                         callback: MessageSentCallback? = nil) {
         ZIMKitCore.shared.sendAudioMessage(audioPath,
-                                           duration: duration,
                                            to: conversationID,
                                            type: type,
                                            callback: callback)
     }
     
     public static func sendVideoMessage(_ videoPath: String,
-                                        duration: UInt32,
                                         to conversationID: String,
                                         type: ZIMConversationType,
                                         callback: MessageSentCallback? = nil) {
         ZIMKitCore.shared.sendVideoMessage(videoPath,
-                                           duration: duration,
                                            to: conversationID,
                                            type: type,
                                            callback: callback)
