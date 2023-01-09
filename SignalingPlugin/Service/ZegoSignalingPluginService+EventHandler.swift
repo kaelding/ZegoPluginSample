@@ -8,8 +8,9 @@
 import Foundation
 import ZIM
 import ZegoPluginAdapter
+import ZPNs
 
-extension ZegoSignalingPluginService: ZIMEventHandler {
+extension ZegoSignalingPluginService: ZIMEventHandler, ZPNsNotificationCenterDelegate {
     func zim(_ zim: ZIM, connectionStateChanged state: ZIMConnectionState, event: ZIMConnectionEvent, extendedData: [AnyHashable : Any]) {
         for handler in zimEventHandlers.allObjects {
             handler.zim?(zim, connectionStateChanged: state, event: event, extendedData: extendedData)

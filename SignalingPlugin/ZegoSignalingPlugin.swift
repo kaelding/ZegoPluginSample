@@ -50,10 +50,15 @@ public class ZegoSignalingPlugin: ZegoSignalingPluginProtocol {
     }
     
     // MARK: - Invitation
-    public func sendInvitation(with invitees: [String], timeout: UInt32, data: String?, callback: InvitationCallback?) {
+    public func sendInvitation(with invitees: [String],
+                               timeout: UInt32,
+                               data: String?,
+                               notificationConfig: [String: String]?,
+                               callback: InvitationCallback?) {
         service.sendInvitation(with: invitees,
                                timeout: timeout,
                                data: data,
+                               notificationConfig: notificationConfig,
                                callback: callback)
     }
     
@@ -71,6 +76,15 @@ public class ZegoSignalingPlugin: ZegoSignalingPluginProtocol {
                                  data: String?,
                                  callback: ResponseInvitationCallback?) {
         service.acceptInvitation(with: invitationID, data: data, callback: callback)
+    }
+    
+    public func enableNotifyWhenAppRunningInBackgroundOrQuit(_ enable: Bool,
+                                                             isIOSDevelopmentEnvironment: Bool) {
+        service.enableNotifyWhenAppRunningInBackgroundOrQuit(enable, isIOSDevelopmentEnvironment: isIOSDevelopmentEnvironment)
+    }
+    
+    public func setRemoteNotificationsDeviceToken(_ deviceToken: Data) {
+        service.setRemoteNotificationsDeviceToken(deviceToken)
     }
     
     // MARK: - Room

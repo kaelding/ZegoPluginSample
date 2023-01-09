@@ -19,7 +19,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target   = '12.0'
   s.source_files            = 'SignalingPlugin/**/*.swift'
   
-  s.dependency 'ZIM', '2.5.0'
+  s.dependency 'ZIM', '~> 2.5.0'
+  s.dependency 'ZPNs', '~> 2.0.1'
   s.dependency 'ZegoPluginAdapter'
 
 end

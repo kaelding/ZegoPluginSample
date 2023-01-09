@@ -22,9 +22,11 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     
     // MARK: - Invitation
     // 将type参数去掉, 由业务方自行放入data中, plugin不需要关心invitation的type
+    // 增加一个notificationConfig参数
     func sendInvitation(with invitees: [String],
                         timeout: UInt32,
                         data: String?,
+                        notificationConfig: [String: String]?,
                         callback: InvitationCallback?)
     
     // 加一个参数 invitationID
@@ -38,6 +40,13 @@ public protocol ZegoSignalingPluginProtocol: ZegoPluginProtocol {
     
     // 参数inviterID改为invitationID
     func acceptInvitation(with invitationID: String, data: String?, callback: ResponseInvitationCallback?)
+    
+    // Android没有isIOSDevelopmentEnvironment参数
+    func enableNotifyWhenAppRunningInBackgroundOrQuit(_ enable: Bool,
+                                                      isIOSDevelopmentEnvironment: Bool)
+    
+    // Android没有此接口
+    func setRemoteNotificationsDeviceToken(_ deviceToken: Data)
     
     // MARK: - Room
     func joinRoom(with roomID: String, roomName: String?, callBack: RoomCallback?)
