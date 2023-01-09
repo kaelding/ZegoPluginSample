@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import ZIM
 
-public class UserInfo {
+public struct UserInfo {
     /// UserID: 1 to 32 characters, can only contain digits, letters, and the following special characters: '~', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '=', '-', '`', ';', '’', ',', '.', '<', '>', '/', '\'.
     public var id: String
 
@@ -20,5 +21,11 @@ public class UserInfo {
     public init(_ userID: String, _ userName: String) {
         self.id = userID
         self.name = userName
+    }
+    
+    init(_ zimUserInfo: ZIMUserFullInfo) {
+        self.id = zimUserInfo.baseInfo.userID
+        self.name = zimUserInfo.baseInfo.userName
+        self.avatarUrl = zimUserInfo.userAvatarUrl
     }
 }
