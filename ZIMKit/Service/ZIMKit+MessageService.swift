@@ -41,6 +41,7 @@ extension ZIMKit {
                                            callback: callback)
     }
     
+    // 内部根据路径计算duration
     public static func sendAudioMessage(_ audioPath: String,
                                         to conversationID: String,
                                         type: ZIMConversationType,
@@ -51,6 +52,7 @@ extension ZIMKit {
                                            callback: callback)
     }
     
+    // 内部根据路径计算duration
     public static func sendVideoMessage(_ videoPath: String,
                                         to conversationID: String,
                                         type: ZIMConversationType,

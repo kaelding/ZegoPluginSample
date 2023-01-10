@@ -8,13 +8,6 @@
 import Foundation
 
 extension ZIMKit {
-    /// Create a group chat
-    /// You can choose multiple users besides yourself to start a group chat.
-    /// - Parameters:
-    ///   - groupName: group name.
-    ///   - groupID: group ID.
-    ///   - userIDs: user ID list.
-    ///   - callback: callback for the results that whether the group chat is created successfully.
     public static func createGroup(with groupName: String,
                                    groupID: String = "",
                                    userIDs: [String],
@@ -25,10 +18,6 @@ extension ZIMKit {
                                       callback: callback)
     }
     
-    /// Join the group chat
-    /// - Parameters:
-    ///   - groupID: group ID
-    ///   - callback: callback for the results that whether the group chat is joined successfully.
     public static func joinGroup(by groupID: String, callback: JoinGroupCallback? = nil) {
         ZIMKitCore.shared.joinGroup(by: groupID, callback: callback)
     }
