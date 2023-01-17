@@ -30,21 +30,24 @@ class ViewController: UIViewController {
                         appSign: "d0e83faa119daa065ae553fb23c68a3e624a1f879d5fb2d0c24e066d9859d214")
         ZIMKit.registerZIMKitDelegate(self)
         
-        let userInfo = UserInfo(userID: "222222", userName: "Kael")
+        let userInfo = ZIMKitUserInfo(userID: "222222", userName: "Kael")
         ZIMKit.connectUser(userInfo: userInfo) { error in
             if error.code == .success {
                 print("connectUser success.")
-                ZIMKit.sendTextMessage("123", to: "22222", type: .peer) { message, error in
-                    print(message.info)
-                }
             } else {
                 print("connectUser fail.")
             }
-            
         }
     }
     
     @IBAction func takePhoto(_ sender: Any) {
+        
+        let conversationVC = ConversationListVC()
+        let nav = UINavigationController(rootViewController: conversationVC)
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true)
+        
+        return Void()
         DispatchQueue.main.async {
             if #available(iOS 17.0, *) {
                 var config = PHPickerConfiguration()
@@ -132,9 +135,9 @@ extension ViewController: ZIMKitDelegate, PHPickerViewControllerDelegate, UIImag
         }
     }
     
-    func onPreMessageSending(_ message: ZIMMessage) {
-        guard let message = message as? ZIMTextMessage else { return }
-        message.message = "Text"
+    func onPreMessageSending(_ message: ZIMKitMessage) -> ZIMKitMessage? {
+        message.textContent.content = "Text"
+        return message
     }
 }
 

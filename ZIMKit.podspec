@@ -19,10 +19,11 @@ Pod::Spec.new do |s|
   s.ios.deployment_target   = '12.0'
   s.source_files            = 'ZIMKit/**/*.swift'
   
-  # s.resource_bundles        = {
-  #   'ZIMKitResources' => ['ZIMKit/Resources/**/*']
-  # }
+  s.resource_bundles        = {
+    'ZIMKitResources' => ['ZIMKit/Resources/**/*']
+  }
   
   s.dependency 'ZegoSignalingPlugin'
+  s.dependency 'Kingfisher', '7.4.1'
 
 end
