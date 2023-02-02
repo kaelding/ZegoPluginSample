@@ -40,6 +40,7 @@ public typealias LoadMoreConversationCallback = (_ error: ZIMError) -> Void
 public typealias MessageSentCallback = (_ error: ZIMError) -> Void
 
 public typealias GetMessageListCallback = (_ conversations: [ZIMKitMessage],
+                                           _ hasMoreHistoryMessage: Bool,
                                            _ error: ZIMError) -> Void
 
 public typealias LoadMoreMessageCallback = (_ error: ZIMError) -> Void
